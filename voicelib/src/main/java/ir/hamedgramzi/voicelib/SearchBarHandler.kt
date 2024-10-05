@@ -12,6 +12,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat.requestPermissions
 import ir.hamedgramzi.voicelib.SearchBar
 import ir.hamedgramzi.voicelib.SearchResultProvider
+import androidx.core.content.ContextCompat
 
 
 class SearchBarHandler(
@@ -77,7 +78,12 @@ class SearchBarHandler(
             mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(activity)
             searchBar.setLanguage(language, country)
             searchBar.setSpeechRecognizer(mSpeechRecognizer)
-            activity.registerReceiver(receiver, IntentFilter("ir.huma.action.newVoiceSearch"))
+            ContextCompat.registerReceiver(
+                activity,
+                receiver,
+                IntentFilter("ir.huma.action.newVoiceSearch"),
+                ContextCompat.RECEIVER_EXPORTED
+            )
         }
     }
 
